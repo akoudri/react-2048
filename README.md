@@ -43,10 +43,10 @@ Whether you're a beginner looking to enhance your skills or an experienced devel
 
 If you encounter any issues or have suggestions, feel free to open an issue. Your feedback is always appreciated!
 
-[lint-badge]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/lint.yml/badge.svg
-[lint-url]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/actions/workflows/lint.yml
-[test-badge]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/test.yml/badge.svg
-[test-url]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/test.yml
+[lint-badge]: https://github.com/reactjs-games/2048/actions/workflows/lint.yml/badge.svg
+[lint-url]: https://github.com/reactjs-games/2048/actions/workflows/actions/workflows/lint.yml
+[test-badge]: https://github.com/reactjs-games/2048/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/reactjs-games/2048/actions/workflows/test.yml
 [issues-badge]: https://img.shields.io/github/issues/mateuszsokola/2048-in-react
 [issues-url]: https://github.com/mateuszsokola/2048-in-react/issues
 [typescript-badge]: https://badges.frapsoft.com/typescript/code/typescript.svg?v=101
