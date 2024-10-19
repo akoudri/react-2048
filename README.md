@@ -47,7 +47,7 @@ If you encounter any issues or have suggestions, feel free to open an issue. You
 [lint-url]: https://github.com/reactjs-games/2048/actions/workflows/lint.yml
 [test-badge]: https://github.com/reactjs-games/2048/actions/workflows/test.yml/badge.svg
 [test-url]: https://github.com/reactjs-games/2048/actions/workflows/test.yml
-[issues-badge]: https://img.shields.io/github/issues/mateuszsokola/2048-in-react
-[issues-url]: https://github.com/mateuszsokola/2048-in-react/issues
+[issues-badge]: https://img.shields.io/github/issues/reactjs-games/2048
+[issues-url]: https://github.com/reactjs-games/2048/issues
 [typescript-badge]: https://badges.frapsoft.com/typescript/code/typescript.svg?v=101
 [typescript-url]: https://github.com/microsoft/TypeScript
