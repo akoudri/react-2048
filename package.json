@@ -12,7 +12,7 @@
     "check-code": "prettier --check .",
     "format": "prettier --write .",
     "test": "jest --watchAll=false",
-    "test-coverage": "jest --coverage --verbose"
+    "test-coverage": "jest --coverage"
   },
   "dependencies": {
     "@types/node": "20.5.1",
@@ -36,6 +36,7 @@
     "@typescript-eslint/typescript-estree": "6.15.0",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
+    "jest-html-reporter": "^3.10.2",
     "prettier": "3.1.1"
   }
 }
