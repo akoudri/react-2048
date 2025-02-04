@@ -29,9 +29,16 @@ pipeline {
             }
             steps {
                 sh '''
+                    npm run test
                     npm run test-coverage
                 '''
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'test-report.html'
         }
     }
 }
