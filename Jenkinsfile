@@ -39,6 +39,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'test-report.html'
+            archiveArtifacts artifacts: 'build/**'
         }
     }
 }
