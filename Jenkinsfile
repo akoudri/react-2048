@@ -8,11 +8,11 @@ pipeline {
     }
 
     stages {
-        stage('Docker') {
-            steps {
-                sh 'docker build -t mynodejs:latest .'
-            }
-        }
+        // stage('Docker') {
+        //     steps {
+        //         sh 'docker build -t mynodejs:latest .'
+        //     }
+        // }
         stage('Build') {
             // agent {
             //     docker {
