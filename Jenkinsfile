@@ -66,9 +66,15 @@ pipeline {
             }
             steps {
                 script {
-                    def response = sh(script: "curl -s -o /dev/null -w '%{http_code}' ${env.STAGING_URL}", returnStdout: true).trim()
-                    if (response != '200') {
-                        error "Deployment failed with status code: ${response}"
+                    def response = httpRequest(
+                        url: env.STAGING_URL,
+                        validResponseCodes: '100:599',
+                        quiet: true,
+                        consoleLogResponseBody: false
+                    )
+
+                    if (response.status != 200) {
+                        error "Deployment failed with status code: ${response.status}"
                     }
                 }
                 sh '''
