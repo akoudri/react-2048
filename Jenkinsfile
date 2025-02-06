@@ -50,8 +50,12 @@ pipeline {
                 sh '''
                     npm install netlify-cli
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=out
+                    node_modules/.bin/netlify deploy --dir=out --json > netlify-deploy.json
                 '''
+                script {
+                    def deployData = readJSON file: 'netlify-deploy.json'
+                    env.DEPLOY_URL = deployData.deploy_url
+                }
             }
         }
         stage('Deploy Production') {
@@ -62,6 +66,12 @@ pipeline {
                 }
             }
             steps {
+                script {
+                    def response = sh(script: "curl -s -o /dev/null -w '%{http_code}' ${env.DEPLOY_URL}", returnStdout: true).trim()
+                    if (response != '200') {
+                        error "Deployment failed with status code: ${response}"
+                    }
+                }
                 sh '''
                     npm install netlify-cli
                     node_modules/.bin/netlify deploy --dir=out --prod
