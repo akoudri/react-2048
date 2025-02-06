@@ -8,10 +8,21 @@ pipeline {
     }
 
     stages {
+        stage('Docker') {
+            steps {
+                sh 'docker build -t mynodejs:latest .'
+            }
+        }
         stage('Build') {
+            // agent {
+            //     docker {
+            //         image 'node:20-alpine'
+            //         reuseNode true
+            //     }
+            // }
             agent {
                 docker {
-                    image 'node:20-alpine'
+                    image 'nmynodejs:latest'
                     reuseNode true
                 }
             }
@@ -27,9 +38,15 @@ pipeline {
             }
         }
         stage('Test') {
+            // agent {
+            //     docker {
+            //         image 'node:20-alpine'
+            //         reuseNode true
+            //     }
+            // }
             agent {
                 docker {
-                    image 'node:20-alpine'
+                    image 'nmynodejs:latest'
                     reuseNode true
                 }
             }
@@ -41,17 +58,25 @@ pipeline {
             }
         }
         stage('Deploy Staging') {
+            // agent {
+            //     docker {
+            //         image 'node:20-alpine'
+            //         reuseNode true
+            //     }
+            // }
             agent {
                 docker {
-                    image 'node:20-alpine'
+                    image 'nmynodejs:latest'
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    npm install netlify-cli node-jq
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=out --json > netlify-deploy.json
+                    # npm install netlify-cli node-jq
+                    # node_modules/.bin/netlify status
+                    # node_modules/.bin/netlify deploy --dir=out --json > netlify-deploy.json
+                    netlify status
+                    netlify deploy --dir=out --json > netlify-deploy.json
                 '''
                 script {
                     env.STAGING_URL = sh(script: "node_modules/.bin/node-jq -r '.deploy_url' netlify-deploy.json", returnStdout: true)
@@ -59,9 +84,15 @@ pipeline {
             }
         }
         stage('Deploy Production') {
+            // agent {
+            //     docker {
+            //         image 'node:20-alpine'
+            //         reuseNode true
+            //     }
+            // }
             agent {
                 docker {
-                    image 'node:20-alpine'
+                    image 'nmynodejs:latest'
                     reuseNode true
                 }
             }
@@ -79,8 +110,9 @@ pipeline {
                     }
                 }
                 sh '''
-                    npm install netlify-cli
-                    node_modules/.bin/netlify deploy --dir=out --prod
+                    # npm install netlify-cli
+                    # node_modules/.bin/netlify deploy --dir=out --prod
+                    netlify deploy --dir=out --prod
                 '''
             }
         }
