@@ -22,7 +22,7 @@ pipeline {
             // }
             agent {
                 docker {
-                    image 'nmynodejs:latest'
+                    image 'mynodejs:latest'
                     reuseNode true
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
             // }
             agent {
                 docker {
-                    image 'nmynodejs:latest'
+                    image 'mynodejs:latest'
                     reuseNode true
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
             // }
             agent {
                 docker {
-                    image 'nmynodejs:latest'
+                    image 'mynodejs:latest'
                     reuseNode true
                 }
             }
@@ -92,7 +92,7 @@ pipeline {
             // }
             agent {
                 docker {
-                    image 'nmynodejs:latest'
+                    image 'mynodejs:latest'
                     reuseNode true
                 }
             }
