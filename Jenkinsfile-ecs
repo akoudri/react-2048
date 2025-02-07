@@ -50,8 +50,7 @@ pipeline {
                     sh '''
                         yum install -y jq
                         REV = $(aws ecs register-task-definition --cli-input-json file://aws/taskdef.json | jq -r '.taskDefinition.revision')
-                        aws ecs update-service --cluster ProdCluster --service JenkinsTraining-Service-Prod\ 
-                            --task-definition JenkinsTraining-TaskDef-Prod:$REV
+                        aws ecs update-service --cluster ProdCluster --service JenkinsTraining-Service-Prod --task-definition JenkinsTraining-TaskDef-Prod:$REV
                     '''
                 }
             }
