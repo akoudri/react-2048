@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Docker') {
             steps {
-                sh 'docker build -t mynodejs:latest .'
+                sh 'docker build -t mynodejs:latest -f images/nodejs'
             }
         }
     }

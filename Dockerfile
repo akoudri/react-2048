@@ -1,3 +1,3 @@
-FROM node:20-alpine
+FROM nginx:1.27-alpine
 
-RUN npm install -g netlify-cli node-jq
+COPY out /usr/share/nginx/html
