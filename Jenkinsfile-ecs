@@ -49,6 +49,7 @@ pipeline {
                     usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         aws ecs register-task-definition --cli-input-json file://aws/taskdef.json
+                    '''
                 }
             }
         }
