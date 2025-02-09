@@ -1,10 +1,11 @@
-FROM amazon/aws-cli:2.24.0
+FROM amazon/aws-cli:latest
+
 USER root
 
-# Installer Docker CLI
-RUN yum update -y && \
+# Activer les extras et installer Docker
+RUN amazon-linux-extras enable docker && \
     yum install -y docker && \
     yum clean all
 
-# Vérifier les versions installées
+# Vérification des versions installées
 RUN aws --version && docker --version
