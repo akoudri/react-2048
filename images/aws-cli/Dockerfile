@@ -1,4 +1,4 @@
 FROM amazon/aws-cli
 USER root
-RUN yum update -y && \
-    yum install -y docker
+RUN apk update && \
+    apk add --no-cache docker
