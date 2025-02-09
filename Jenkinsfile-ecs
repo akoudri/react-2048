@@ -38,14 +38,13 @@ pipeline {
         stage('Build Docker Image') { 
             agent {
                 docker {
-                    image 'amazon/aws-cli'
-                    args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
+                    image 'docker:latest'
+                    args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    amazon-linux-extras install docker
                     docker build -t react-2048:latest .
                 '''
             }
