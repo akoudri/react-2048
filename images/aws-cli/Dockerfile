@@ -1,9 +1,10 @@
-FROM amazon/aws-cli:latest
-
+FROM amazon/aws-cli:2.24.0
 USER root
 
-RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-24.0.5.tgz | tar -xz -C /usr/local/bin --strip-components=1 \
-    && chmod +x /usr/local/bin/docker
+# Installer Docker CLI
+RUN yum update -y && \
+    yum install -y docker && \
+    yum clean all
 
-
-USER 1000
+# Vérifier les versions installées
+RUN aws --version && docker --version
