@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   jenkins:
@@ -6,7 +6,7 @@ services:
     privileged: true
     user: root
     ports:
-      - 8080:8080
+      - 80:8080
       - 50000:50000
     container_name: jenkins
     volumes:
@@ -14,6 +14,27 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
+
+  agent1:
+    build:
+      context: ./images/dockeragent
+    container_name: agent1
+    environment:
+      - JENKINS_URL=http://jenkins:8080
+      - JENKINS_AGENT_NAME=agent1
+      - JENKINS_SECRET=1db0a7622b25b641b34d1acb85e16b1286b0713ed7a617515ced25fd57d1953b
+    depends_on:
+      - jenkins
+
+  agent2:
+    image: jenkins/inbound-agent
+    container_name: agent2
+    environment:
+      - JENKINS_URL=http://jenkins:8080
+      - JENKINS_AGENT_NAME=agent2
+      - JENKINS_SECRET=9afc15a0cd2c14c749799432d70603d84920c2f27b22143e66612a07c72544aa
+    depends_on:
+      - jenkins
 
 volumes:
   jenkins_home:
