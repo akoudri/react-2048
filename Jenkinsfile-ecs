@@ -49,9 +49,9 @@ pipeline {
                     passwordVariable: 'AWS_SECRET_ACCESS_KEY', 
                     usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
-                        docker build -t $DOCKER_REGISTRY/react-2048:$NEXT_PUBLIC_APP_VERSION .
+                        docker build -t $DOCKER_REGISTRY/jenkins-training:$NEXT_PUBLIC_APP_VERSION .
                         aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-                        docker push $DOCKER_REGISTRY/react-2048:$NEXT_PUBLIC_APP_VERSION
+                        docker push $DOCKER_REGISTRY/jenkins-training:$NEXT_PUBLIC_APP_VERSION 
                     '''
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
         stage('Deploy AWS') {
             agent {
                 docker {
-                    image 'myawscli:latest'
+                    image 'aws-cli'
                     args "-u root --entrypoint=''"
                     reuseNode true
                 }
@@ -70,6 +70,7 @@ pipeline {
                     usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         yum install -y jq
+                        sed -i "s/APP_VERSION/$NEXT_PUBLIC_APP_VERSION/g" aws/taskdef.json
                         export REV=$(aws ecs register-task-definition --cli-input-json file://aws/taskdef.json | jq -r '.taskDefinition.revision')
                         aws ecs update-service --cluster ProdCluster --service JenkinsTraining-Service-Prod --task-definition JenkinsTraining-TaskDef-Prod:$REV
                         aws ecs wait services-stable --cluster ProdCluster --services JenkinsTraining-Service-Prod

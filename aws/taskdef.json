@@ -5,8 +5,8 @@
     "family": "JenkinsTraining-TaskDef-Prod",
     "containerDefinitions": [
         {
-            "name": "nginx",
-            "image": "nginx:1.27-alpine",
+            "name": "jenkins-training",
+            "image": "923692348898.dkr.ecr.eu-west-3.amazonaws.com/jenkins-training:APP_VERSION",
             "portMappings": [
                 {
                     "name": "nginx-port-mapping",
@@ -23,5 +23,5 @@
     "networkMode": "awsvpc",
     "memory": "512",
     "cpu": "256",
-    "executionRoleArn": ""
+    "executionRoleArn": "arn:aws:iam::923692348898:role/ecsTaskExecutionRole"
 }
