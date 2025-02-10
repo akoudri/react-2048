@@ -7,6 +7,11 @@ pipeline {
         NEXT_PUBLIC_APP_VERSION = "1.0.${BUILD_NUMBER}"
     }
 
+    tools {
+        maven 'Maven 3.8.1'
+        jdk 'JDK 11'
+    }
+
     stages {
         // stage('Docker') {
         //     steps {
