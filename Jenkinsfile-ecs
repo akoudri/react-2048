@@ -39,7 +39,7 @@ pipeline {
         stage('Build Docker Image') { 
             agent {
                 docker {
-                    image 'myawscli:latest'
+                    image 'bentolor/docker-dind-awscli'
                     args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
                     reuseNode true
                 }
@@ -50,7 +50,7 @@ pipeline {
                     usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         docker build -t $DOCKER_REGISTRY/react-2048:$NEXT_PUBLIC_APP_VERSION .
-                        docker login -u AWS -p $(aws ecr get-login-password) $DOCKER_REGISTRY
+                        aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
                         docker push $DOCKER_REGISTRY/react-2048:$NEXT_PUBLIC_APP_VERSION
                     '''
                 }
