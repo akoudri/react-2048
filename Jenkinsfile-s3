@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    
+    environment {
+        NEXT_PUBLIC_APP_VERSION = "1.0.${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'mynodejs:latest'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm ci
+                    npm run build
+                '''
+            }
+        }
+        stage('Tests') {
+            parallel {
+                stage('Running tests') {
+                    agent {
+                        docker {
+                            image 'mynodejs:latest'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            npm run test
+                        '''
+                    }
+                }
+                stage('Reporting') {
+                    agent {
+                        docker {
+                            image 'mynodejs:latest'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            npm run test-coverage
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Deploiement') {
+            agent {
+                docker {
+                    image 'amazon/aws-cli'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'aws --version'
+            }
+        }
+    }
+    
+    post {
+        always {
+            archiveArtifacts artifacts: 'test-report.html'
+        }
+    }
+}
