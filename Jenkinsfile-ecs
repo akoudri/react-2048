@@ -84,8 +84,8 @@ pipeline {
                     sh '''
                         yum install jq -y
                         sed -i "s/APP_VERSION/$NEXT_PUBLIC_APP_VERSION/g" aws/taskdef.json
-                        # export REV=$(aws ecs register-task-definition --cli-input-json file://aws/taskdef.json | jq -r '.taskDefinition.revision')
-                        aws ecs update-service --cluster jenkins-cluster --service nginx-service --task-definition Nginx-Task:3
+                        export REV=$(aws ecs register-task-definition --cli-input-json file://aws/taskdef.json | jq -r '.taskDefinition.revision')
+                        aws ecs update-service --cluster jenkins-cluster --service nginx-service --task-definition Nginx-Task:$REV
                         aws ecs wait services-stable --cluster jenkins-cluster --services nginx-service
                     '''
                 }
